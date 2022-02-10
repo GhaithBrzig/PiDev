@@ -22,19 +22,19 @@ public class MainClass {
         //  MyConnection mc = new MyConnection();
         ProduitCRUD pcd = new ProduitCRUD();
        ReclamationCRUD rcd = new ReclamationCRUD();
-        Produit p = new Produit(1,"cMeat", 22, "Meat");
+        Produit p = new Produit(2,"cowMeat", "kg", 84, "Meat", 10.7, 20);
                 Reclamation r = new Reclamation(4,4,"regrtr8528587578hrhrthh", "10/12/2022", false);
 //rcd.addReclamation(r);
 //rcd.deleteReclamation(3);
-     for (Reclamation m : rcd.DisplayReclamations()) {
-            System.out.println(m);
-        }
-     rcd.updateReclamation(r);
-        //pcd.addProduit(p);
-        //for (Produit e : pcd.DisplayStock()) {
-           // System.out.println(e);
+     //for (Reclamation m : rcd.DisplayReclamations()) {
+            //System.out.println(m);
        // }
-       //pcd.updateProduit(p);
-       //pcd.deleteProduit(1);
+     //rcd.updateReclamation(r);
+        //pcd.addProduit(p);
+       // for (Produit e : pcd.DisplayStock()) {
+         //  System.out.println(e);
+      // }
+     //  pcd.updateProduit(p);
+       //pcd.deleteProduit(3);
     }
 }

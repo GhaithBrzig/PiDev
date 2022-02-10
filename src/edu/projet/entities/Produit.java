@@ -33,13 +33,13 @@ public class Produit {
 
     }
 
-    public Produit(String nom, String unite, int quantite, String categorie, double prix_unitaire, double prix_total) {
+    public Produit(String nom, String unite, int quantite, String categorie, double prix_unitaire) {
         this.nom = nom;
         this.unite = unite;
         this.quantite = quantite;
         this.categorie = categorie;
         this.prix_unitaire = prix_unitaire;
-        this.prix_total = prix_total;
+      
     }
 
     public int getId() {

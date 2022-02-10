@@ -24,11 +24,14 @@ public class ProduitCRUD {
 
     public void addProduit(Produit p) {
         try {
-            String request = "INSERT INTO stock (nom,quantite,categorie) VALUES(?,?,?) ";
+            String request = "INSERT INTO stock (nom,unite,quantite,categorie,prix_unitaire,prix_total) VALUES(?,?,?,?,?,?) ";
             PreparedStatement pst = (PreparedStatement) MyConnection.getInstance().getCnx().prepareStatement(request);
             pst.setString(1, p.getNom());
-            pst.setInt(2, p.getQuantite());
-            pst.setString(3, p.getCategorie());
+            pst.setString(2, p.getUnite());
+            pst.setInt(3, p.getQuantite());
+            pst.setString(4, p.getCategorie());
+            pst.setDouble(5, p.getPrix_unitaire());
+            pst.setDouble(6, p.getPrix_unitaire()*p.getQuantite());
             pst.executeUpdate();
             System.out.println("Produit ajouté! ");
         } catch (SQLException ex) {
@@ -39,7 +42,7 @@ public class ProduitCRUD {
     public List<Produit> DisplayStock() {
         List<Produit> myList = new ArrayList();
         try {
-            String request = "Select * from stock";
+            String request = "Select id,nom,unite,quantite,categorie,prix_unitaire,ROUND( prix_total, 1 ) as prix_total from stock";
             Statement st = (Statement) MyConnection.getInstance().getCnx().createStatement();
             ResultSet res = st.executeQuery(request);
 
@@ -47,8 +50,11 @@ public class ProduitCRUD {
                 Produit p = new Produit();
                 p.setId(res.getInt(1));
                 p.setNom(res.getString(2));
-                p.setQuantite(res.getInt(3));
-                p.setCategorie(res.getString(4));
+                p.setUnite(res.getString(3));
+                p.setQuantite(res.getInt(4));
+                p.setCategorie(res.getString(5));
+                p.setPrix_unitaire(res.getDouble(6));
+                p.setPrix_total(res.getDouble(7));
                 myList.add(p);
             }
 
@@ -60,19 +66,22 @@ public class ProduitCRUD {
 
     public void updateProduit(Produit p) {
         try {
-            String request = "UPDATE stock Set nom = ?, quantite = ?, categorie = ? where id = ?  ";
+            String request = "UPDATE stock Set nom = ?, unite = ?, quantite = ?, categorie = ?, prix_unitaire = ?, prix_total = ? where id = ?  ";
             PreparedStatement pst = (PreparedStatement) MyConnection.getInstance().getCnx().prepareStatement(request);
             pst.setString(1, p.getNom());
-            pst.setInt(2, p.getQuantite());
-            pst.setString(3, p.getCategorie());
-            pst.setInt(4, p.getId());
+            pst.setString(2, p.getUnite());
+            pst.setInt(3, p.getQuantite());
+            pst.setString(4, p.getCategorie());
+            pst.setDouble(5, p.getPrix_unitaire());
+            pst.setDouble(6, p.getPrix_total());
+            pst.setInt(7, p.getId());
             pst.executeUpdate();
             System.out.println("Produit modifié! ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
-    
+
     public void deleteProduit(int x) {
         try {
             String request = "DELETE FROM stock where id = ?  ";

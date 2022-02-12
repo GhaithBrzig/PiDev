@@ -7,11 +7,11 @@ package edu.projet.tests;
 
 import edu.projet.utils.MyConnection;
 import edu.projet.entities.Produit;
-import edu.projet.dao.ProduitCRUD;
 import edu.projet.entities.Reclamation;
-import edu.projet.dao.ReclamationCRUD;
+import edu.projet.entities.StockCategory;
 import edu.projet.services.ProduitService;
 import edu.projet.services.ReclamationService;
+import edu.projet.services.StockCategoryService;
 import edu.projet.utils.JavaMailUtil;
 import java.util.List;
 
@@ -22,40 +22,30 @@ import java.util.List;
 public class MainClass {
 
     public static void main(String[] args) throws Exception {
-        //  MyConnection mc = new MyConnection();
+        // MyConnection mc = new MyConnection();
        ReclamationService rsv = new ReclamationService();
                ProduitService psv = new ProduitService();
-        Produit p = new Produit("cowMeat", "kg", 3, "Meat", 10.7);
-                Reclamation r = new Reclamation(4,"bgbbgbg5zefzefezfeffzef88fefz52785bgbgb", "10/12/2022", false);
-//rcd.addReclamation(r);
-//rcd.deleteReclamation(3);
-     //for (Reclamation m : rcd.DisplayReclamations()) {
-            //System.out.println(m);
-       // }
-     //rcd.updateReclamation(r);
-        //pcd.addProduit(p);
-       // for (Produit e : pcd.DisplayStock()) {
-         //  System.out.println(e);
-      // }
-       //pcd.updateProduit(p);
-       //pcd.deleteProduit(3);
-       
+                                  StockCategoryService csv = new StockCategoryService();
+        Produit p = new Produit(5,404,"saufmon", "g", 8, "Fish", 10.7, 80);
+                Reclamation r = new Reclamation(4,"bgbbgbg5zefzefezfeffzeerf88fefz52785bgbgb", "10/12/2022", false);
+                StockCategory c = new StockCategory(1,"vegetables");
+
        
        //PRODUIT TEST
-       //psv.updateProduit(p);
+      //psv.updateProduit(p);
        
-      // for (Produit e : psv.DisplayStock()) {
-          // System.out.println(e);
-      // }
+       //for (Produit e : psv.DisplayStock()) {
+           //System.out.println(e);
+      //}
       
-      // psv.addProduit(p);
+       //psv.addProduit(p);
       
-      //psv.deleteProduit(2);
+      //psv.deleteProduit(5);
       
       
       
       // RECLAMATION TEST
-     rsv.addReclamation(r);
+     //rsv.addReclamation(r);
      
     // rsv.updateReclamation(r);
     
@@ -63,6 +53,17 @@ public class MainClass {
             //System.out.println(m);
        //}
        //rsv.deleteReclamation(4);
+       
+       
+        // StockCategoryTEST
+     //csv.addStockCategory(c);
+     
+    //csv.updateStockCategory(c);
+    
+    //for (StockCategory s : csv.DisplayStockCategories()) {
+           // System.out.println(s);
+       //}
+       //csv.deleteStockCategory(1);
        
     }
 }

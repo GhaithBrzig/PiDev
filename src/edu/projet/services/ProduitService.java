@@ -28,6 +28,7 @@ public class ProduitService {
             this.produitCRUD.updateProduit(p);
             if (p.getQuantite() < 5) {
                 try {
+                    System.out.println(p.getNom()+" stock is getting exhausted");
                     JavaMailUtil.sendMail("tanwichette@gmail.com", p.getNom()+" stock is getting exhausted","Alert !");
                 } catch (Exception ex) {
                     Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

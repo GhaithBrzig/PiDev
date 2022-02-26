@@ -9,16 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="664.0" prefWidth="863.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.projet.gui.AjouterProduitController">
+<AnchorPane id="AnchorPane" prefHeight="689.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.projet.gui.AjouterProduitController">
    <children>
-      <TableView fx:id="StockView" layoutX="252.0" layoutY="103.0" prefHeight="430.0" prefWidth="608.0">
+      <TableView fx:id="StockView" layoutX="252.0" layoutY="103.0" prefHeight="430.0" prefWidth="630.0">
         <columns>
-          <TableColumn fx:id="ColNom" minWidth="15.0" prefWidth="120.0" text="Nom" />
-          <TableColumn fx:id="ColUnite" prefWidth="70.0" text="Unite" />
+          <TableColumn fx:id="ColNom" minWidth="15.0" prefWidth="103.0" text="Nom" />
+          <TableColumn fx:id="ColUnite" prefWidth="87.0" text="Unite" />
             <TableColumn fx:id="ColQuantite" prefWidth="85.0" text="Quantite" />
             <TableColumn fx:id="ColCategorie" prefWidth="100.0" text="Categorie" />
             <TableColumn fx:id="ColPrix" prefWidth="75.0" text="Prix unitaire" />
-            <TableColumn fx:id="ColActions" prefWidth="157.0" text="Actions" />
+            <TableColumn fx:id="ColActions" prefWidth="89.0" text="Supprimer" />
+            <TableColumn fx:id="ColActions1" prefWidth="89.0" text="Modifier" />
         </columns>
       </TableView>
       <TextField fx:id="PName" layoutX="86.0" layoutY="103.0" />

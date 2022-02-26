@@ -5,7 +5,7 @@
  */
 package edu.projet.entities;
 
-import com.mysql.jdbc.Blob;
+import javafx.scene.control.Button;
 
 /**
  *
@@ -21,30 +21,12 @@ public class Produit {
     private String categorie;
     private double prix_unitaire;
     private double prix_total;
+    private Button deleteButton;
+    private Button modifyButton;
 
     public Produit() {
-    }
-
-    public Produit(int id, int id_categorie, String nom, String unite, int quantite, String categorie, double prix_unitaire, double prix_total, Blob image) {
-        this.id = id;
-        this.id_categorie = id_categorie;
-        this.nom = nom;
-        this.unite = unite;
-        this.quantite = quantite;
-        this.categorie = categorie;
-        this.prix_unitaire = prix_unitaire;
-        this.prix_total = prix_total;
-
-    }
-    
-    public Produit(int id, int id_categorie, String nom, String unite, int quantite, String categorie, double prix_unitaire) {
-        this.id = id;
-        this.id_categorie = id_categorie;
-        this.nom = nom;
-        this.unite = unite;
-        this.quantite = quantite;
-        this.categorie = categorie;
-        this.prix_unitaire = prix_unitaire;
+        this.deleteButton = new Button("Supprimer");
+        this.modifyButton = new Button("Modifier");
 
     }
 
@@ -55,7 +37,8 @@ public class Produit {
         this.quantite = quantite;
         this.categorie = categorie;
         this.prix_unitaire = prix_unitaire;
-
+        this.deleteButton = new Button("Supprimer");
+         this.modifyButton = new Button("Modifier");
 
     }
 
@@ -123,12 +106,28 @@ public class Produit {
         this.prix_total = prix_total;
     }
 
-    
-    
+    public Button getDeleteButton() {
+        return deleteButton;
+    }
+
+    public void setDeleteButton(Button deleteButton) {
+        this.deleteButton = deleteButton;
+    }
+
+    public Button getModifyButton() {
+        return modifyButton;
+    }
+
+    public void setModifyButton(Button modifyButton) {
+        this.modifyButton = modifyButton;
+    }
 
     @Override
     public String toString() {
-        return "Produit{" + "id=" + id + ", id_categorie=" + id_categorie + ", nom=" + nom + ", unite=" + unite + ", quantite=" + quantite + ", categorie=" + categorie + ", prix_unitaire=" + prix_unitaire + ", prix_total=" + prix_total  + '}';
+        return "Produit{" + "id=" + id + ", id_categorie=" + id_categorie + ", nom=" + nom + ", unite=" + unite + ", quantite=" + quantite + ", categorie=" + categorie + ", prix_unitaire=" + prix_unitaire + ", prix_total=" + prix_total + ", deleteButton=" + deleteButton + ", modifyButton=" + modifyButton + '}';
     }
+
+    
+    
 
 }

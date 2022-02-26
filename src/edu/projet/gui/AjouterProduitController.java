@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -74,9 +75,11 @@ public class AjouterProduitController implements Initializable {
     @FXML
     private TableColumn<Produit, Float> ColPrix;
     @FXML
-    private TableColumn<?, ?> ColActions;
+    private TableColumn<Produit, String> ColActions;
     @FXML
     private TableView<Produit> StockView;
+    @FXML
+    private TableColumn<Produit, String> ColActions1;
 
     /**
      * Initializes the controller class.
@@ -109,6 +112,8 @@ public class AjouterProduitController implements Initializable {
         ColQuantite.setCellValueFactory(new PropertyValueFactory<>("quantite"));
         ColCategorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         ColPrix.setCellValueFactory(new PropertyValueFactory<>("prix_unitaire"));
+        ColActions.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+        ColActions1.setCellValueFactory(new PropertyValueFactory<>("modifyButton"));
 
     }
 
@@ -126,10 +131,10 @@ public class AjouterProduitController implements Initializable {
 
         ProduitService psv = new ProduitService();
         psv.addProduit(p);
-       StockView.getItems().clear();
+        StockView.getItems().clear();
         initiateCols();
         LoadData();
-        
+
     }
 
     private void LoadData() {

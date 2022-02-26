@@ -5,6 +5,7 @@
  */
 package edu.projet.dao;
 
+import com.mysql.jdbc.Blob;
 import edu.projet.entities.Produit;
 import edu.projet.utils.MyConnection;
 import java.sql.PreparedStatement;

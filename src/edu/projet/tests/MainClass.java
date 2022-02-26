@@ -26,7 +26,7 @@ public class MainClass {
        ReclamationService rsv = new ReclamationService();
                ProduitService psv = new ProduitService();
                                   StockCategoryService csv = new StockCategoryService();
-        Produit p = new Produit(7,404,"saumon", "g", 4, "Fish", 10.7, 80);
+        //Produit p = new Produit(7,404,"saumon", "g", 4, "Fish", 10.7, 80);
                 Reclamation r = new Reclamation(4,"bgbbgbg5zefze(g(gfezfeffzeerf88fefz5efef2785bgbgb", "10/12/2022", false);
                 StockCategory c = new StockCategory(1,"vegetables");
 
@@ -34,9 +34,9 @@ public class MainClass {
        //PRODUIT TEST
       //psv.updateProduit(p);
        
-       //for (Produit e : psv.DisplayStock()) {
-          // System.out.println(e);
-      //}
+       for (Produit e : psv.DisplayStock()) {
+           System.out.println(e);
+      }
       
        //psv.addProduit(p);
       

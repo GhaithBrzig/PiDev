@@ -49,7 +49,7 @@ public class ModifierProduitController implements Initializable {
     TextField PPrixUnitaire;
     @FXML
     ChoiceBox<StockCategory> Categorie;
-    int studentId;
+    int produitId;
 URL url;
     /**
      * Initializes the controller class.
@@ -78,7 +78,7 @@ URL url;
 
     void setTextField(int id, String name, String Unite, int qte, StockCategory ca, double Prix) {
 
-        studentId = id;
+        produitId = id;
         PName.setText(name);
         PUnite.setText(Unite);
         PQuantite.setText(Integer.toString(qte));
@@ -118,7 +118,7 @@ URL url;
                 String categorie = Categorie.getValue().getNom();
                 Double prix_unitaire = Double.parseDouble(PPrixUnitaire.getText());
 
-                Produit p = new Produit(studentId, id_categorie, nom, unite, qte, categorie, prix_unitaire);
+                Produit p = new Produit(produitId, id_categorie, nom, unite, qte, categorie, prix_unitaire);
 
                 ProduitService psv = new ProduitService();
                 psv.updateProduit(p);

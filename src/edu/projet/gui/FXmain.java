@@ -28,7 +28,7 @@ public class FXmain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("AjouterProduit.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("InterfaceCategorie.fxml"));
             Scene scene = new Scene(root, 1050, 700);
             primaryStage.setTitle("Ajouter Produit");
             primaryStage.setScene(scene);

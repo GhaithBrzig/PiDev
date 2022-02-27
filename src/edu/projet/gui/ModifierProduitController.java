@@ -137,7 +137,18 @@ URL url;
     }
 
     @FXML
-    private void Annuler(ActionEvent event) {
+    private void Effacer(ActionEvent event) {
+        PName.setText(null);
+        PUnite.setText(null);
+        PQuantite.setText(null);
+        Categorie.setValue(null);
+        PPrixUnitaire.setText(null);
+    }
+
+    @FXML
+    private void close(ActionEvent event) {
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 }

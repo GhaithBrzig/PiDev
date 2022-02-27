@@ -11,12 +11,15 @@ import edu.projet.entities.Produit;
 import edu.projet.entities.StockCategory;
 import edu.projet.services.ProduitService;
 import edu.projet.services.StockCategoryService;
+import edu.projet.utils.MyConnection;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +34,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -42,8 +46,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
+import static javax.management.Query.value;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JOptionPane;
 
@@ -78,11 +84,16 @@ public class AjouterProduitController implements Initializable {
     @FXML
     private TableColumn<Produit, Double> ColPrix;
     @FXML
-    private TableView<Produit> StockView;
+     TableView<Produit> StockView;
     @FXML
     private TableColumn<Produit, Double> ColPrixT;
     @FXML
     private TableColumn<Produit, Integer> ColId;
+
+    Produit produit = null;
+    String query = null;
+    ResultSet resultSet = null;
+    StockCategory c = new StockCategory();
 
     /**
      * Initializes the controller class.
@@ -109,7 +120,7 @@ public class AjouterProduitController implements Initializable {
         LoadData();
     }
 
-    private void initiateCols() {
+    public void initiateCols() {
         ColId.setCellValueFactory(new PropertyValueFactory<>("id"));
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ColUnite.setCellValueFactory(new PropertyValueFactory<>("unite"));
@@ -151,7 +162,7 @@ public class AjouterProduitController implements Initializable {
         }
     }
 
-    private void LoadData() {
+    public void LoadData() {
         produitsList.removeAll(produitsList);
         ProduitService psv = new ProduitService();
         for (Produit e : psv.DisplayStock()) {
@@ -181,12 +192,52 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void Close(ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
     @FXML
     private void Update(ActionEvent event) {
-       
+
+        if (StockView.getSelectionModel().getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Selectionner un produit a modifier !", "Input error ", JOptionPane.ERROR_MESSAGE);
+        } else {
+            produit = StockView.getSelectionModel().getSelectedItem();
+            int catId = produit.getId_categorie();
+            try {
+                query = "SELECT * FROM stockCategory where id = ? ";
+                PreparedStatement pst = (PreparedStatement) MyConnection.getInstance().getCnx().prepareStatement(query);
+                pst.setInt(1, catId);
+                resultSet = pst.executeQuery();
+                while (resultSet.next()) {
+
+                    c.setId(resultSet.getInt(1));
+                    c.setNom(resultSet.getString(2));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AjouterProduitController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("modifierProduit.fxml"));
+            try {
+                loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(AjouterProduitController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ModifierProduitController modifierProduitController = loader.getController();
+            modifierProduitController.setTextField(produit.getId(), produit.getNom(),
+                    produit.getUnite(), produit.getQuantite(), c, produit.getPrix_unitaire());
+
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.showAndWait();
+            StockView.getItems().clear();
+                initiateCols();
+                LoadData();
+            
+        }
     }
 }

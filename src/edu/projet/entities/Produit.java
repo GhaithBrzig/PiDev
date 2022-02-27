@@ -21,12 +21,22 @@ public class Produit {
     private String categorie;
     private double prix_unitaire;
     private double prix_total;
-   
 
     public Produit() {
     }
 
     public Produit(int id_categorie, String nom, String unite, int quantite, String categorie, double prix_unitaire) {
+        this.nom = nom;
+        this.id_categorie = id_categorie;
+        this.unite = unite;
+        this.quantite = quantite;
+        this.categorie = categorie;
+        this.prix_unitaire = prix_unitaire;
+
+    }
+
+    public Produit(int id, int id_categorie, String nom, String unite, int quantite, String categorie, double prix_unitaire) {
+        this.id = id;
         this.nom = nom;
         this.id_categorie = id_categorie;
         this.unite = unite;
@@ -104,10 +114,5 @@ public class Produit {
     public String toString() {
         return "Produit{" + "id=" + id + ", id_categorie=" + id_categorie + ", nom=" + nom + ", unite=" + unite + ", quantite=" + quantite + ", categorie=" + categorie + ", prix_unitaire=" + prix_unitaire + ", prix_total=" + prix_total + '}';
     }
-
-    
-
-    
-    
 
 }

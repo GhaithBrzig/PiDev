@@ -43,6 +43,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -119,6 +120,11 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void Btnajout(ActionEvent event) {
+         if (PName.getText().equals("") || PUnite.getText().equals("") ||PQuantite.getText().equals("") || PPrixUnitaire.getText().equals("") || Categorie.getValue() == null) {
+
+            JOptionPane.showMessageDialog(null, "Champ manquant!", "Input error ", JOptionPane.ERROR_MESSAGE);
+ } else {
+            try {
         String nom = PName.getText();
         int id_categorie;
         id_categorie = Categorie.getValue().getId();
@@ -134,8 +140,13 @@ public class AjouterProduitController implements Initializable {
         StockView.getItems().clear();
         initiateCols();
         LoadData();
+          } catch (RuntimeException e) {
+                JOptionPane.showMessageDialog(null, "Prix et quantite doivent étre des nombres!", "Input error ", JOptionPane.ERROR_MESSAGE);
+                PQuantite.setText("");
+                PPrixUnitaire.setText("");
+            }
 
-    }
+    }}
 
     private void LoadData() {
         produitsList.removeAll(produitsList);

@@ -29,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -40,6 +41,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javax.sql.rowset.serial.SerialBlob;
@@ -74,13 +76,13 @@ public class AjouterProduitController implements Initializable {
     @FXML
     private TableColumn<Produit, String> ColCategorie;
     @FXML
-    private TableColumn<Produit, Float> ColPrix;
-    @FXML
-    private TableColumn<Produit, String> ColActions;
+    private TableColumn<Produit, Double> ColPrix;
     @FXML
     private TableView<Produit> StockView;
     @FXML
-    private TableColumn<Produit, String> ColActions1;
+    private TableColumn<Produit, Double> ColPrixT;
+    @FXML
+    private TableColumn<Produit, Integer> ColId;
 
     /**
      * Initializes the controller class.
@@ -108,45 +110,46 @@ public class AjouterProduitController implements Initializable {
     }
 
     private void initiateCols() {
+        ColId.setCellValueFactory(new PropertyValueFactory<>("id"));
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ColUnite.setCellValueFactory(new PropertyValueFactory<>("unite"));
         ColQuantite.setCellValueFactory(new PropertyValueFactory<>("quantite"));
         ColCategorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         ColPrix.setCellValueFactory(new PropertyValueFactory<>("prix_unitaire"));
-        ColActions.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
-        ColActions1.setCellValueFactory(new PropertyValueFactory<>("modifyButton"));
+        ColPrixT.setCellValueFactory(new PropertyValueFactory<>("prix_total"));
 
     }
 
     @FXML
     private void Btnajout(ActionEvent event) {
-         if (PName.getText().equals("") || PUnite.getText().equals("") ||PQuantite.getText().equals("") || PPrixUnitaire.getText().equals("") || Categorie.getValue() == null) {
+        if (PName.getText().equals("") || PUnite.getText().equals("") || PQuantite.getText().equals("") || PPrixUnitaire.getText().equals("") || Categorie.getValue() == null) {
 
             JOptionPane.showMessageDialog(null, "Champ manquant!", "Input error ", JOptionPane.ERROR_MESSAGE);
- } else {
+        } else {
             try {
-        String nom = PName.getText();
-        int id_categorie;
-        id_categorie = Categorie.getValue().getId();
-        String unite = PUnite.getText();
-        int qte = Integer.parseInt(PQuantite.getText());
-        String categorie = Categorie.getValue().getNom();
-        Double prix_unitaire = Double.parseDouble(PPrixUnitaire.getText());
+                String nom = PName.getText();
+                int id_categorie;
+                id_categorie = Categorie.getValue().getId();
+                String unite = PUnite.getText();
+                int qte = Integer.parseInt(PQuantite.getText());
+                String categorie = Categorie.getValue().getNom();
+                Double prix_unitaire = Double.parseDouble(PPrixUnitaire.getText());
 
-        Produit p = new Produit(id_categorie, nom, unite, qte, categorie, prix_unitaire);
+                Produit p = new Produit(id_categorie, nom, unite, qte, categorie, prix_unitaire);
 
-        ProduitService psv = new ProduitService();
-        psv.addProduit(p);
-        StockView.getItems().clear();
-        initiateCols();
-        LoadData();
-          } catch (RuntimeException e) {
+                ProduitService psv = new ProduitService();
+                psv.addProduit(p);
+                StockView.getItems().clear();
+                initiateCols();
+                LoadData();
+            } catch (RuntimeException e) {
                 JOptionPane.showMessageDialog(null, "Prix et quantite doivent étre des nombres!", "Input error ", JOptionPane.ERROR_MESSAGE);
                 PQuantite.setText("");
                 PPrixUnitaire.setText("");
             }
 
-    }}
+        }
+    }
 
     private void LoadData() {
         produitsList.removeAll(produitsList);
@@ -155,5 +158,35 @@ public class AjouterProduitController implements Initializable {
             produitsList.add(e);
         }
         StockView.getItems().addAll(produitsList);
+    }
+
+    @FXML
+    private void DeleteRow(ActionEvent event) {
+        if (StockView.getSelectionModel().getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Selectionner un produit a supprimer !", "Input error ", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                ProduitService psv = new ProduitService();
+                psv.deleteProduit(StockView.getSelectionModel().getSelectedItem().getId());
+                StockView.getItems().clear();
+                initiateCols();
+                LoadData();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error!", "error ", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        }
+    }
+
+    @FXML
+    private void Close(ActionEvent event) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void Update(ActionEvent event) {
+       
     }
 }

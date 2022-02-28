@@ -23,11 +23,6 @@ public class ReclamationService {
 
     public void addReclamation(Reclamation r) {
         this.reclamationCRUD.addReclamation(r);
-        try {
-            JavaMailUtil.sendMail("tanwichette@gmail.com","ezfefzefzefe","reclamation");
-        } catch (Exception ex) {
-            Logger.getLogger(ReclamationService.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 

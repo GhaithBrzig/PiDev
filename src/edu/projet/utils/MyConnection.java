@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class MyConnection {
 
     //Design Patter - Singleton
-    public String url = "jdbc:mysql://localhost:3306/ProjetDB";
+    public String url = "jdbc:mysql://localhost:3306/ProjetDB?zeroDateTimeBehavior=convertToNull";
     public String login = "root";
     public String pwd = "";
     public Connection cnx;
